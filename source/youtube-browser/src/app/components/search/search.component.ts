@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 })
 export class SearchComponent implements OnInit {
 
+  // The search value entered into the matInput search.
   readonly searchControl: FormControl = new FormControl();
 
   constructor() { }
@@ -16,8 +17,9 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * Calls the YouTube Data service to fetch data from the
+   * Calls the YoutubeDataService to fetch data from the
    * YouTube Data API on searching.
+   * 
    * TODO: Remove the console.log and integrate the API.
    */
   onSearch() {
