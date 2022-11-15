@@ -1,0 +1,18 @@
+<div id="search">
+    <div class="row">
+        <div class="col-11">
+            <mat-form-field>
+                <mat-label>Search for a dog video</mat-label>
+                <input matInput
+                    type="text"
+                    [formControl]="searchControl"
+                    (keydown.enter)="onSearch()">
+            </mat-form-field>
+        </div>
+        <div class="col-1 my-auto">
+            <button class="search-btn" (click)="onSearch()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

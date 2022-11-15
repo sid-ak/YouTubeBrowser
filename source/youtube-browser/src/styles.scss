@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// SEARCH
+#search {
+    
+    .mat-form-field {
+        width: 100%;
+
+        .mat-form-field-underline {
+            background-color: purple;
+        }
+
+        mat-label {
+            color: purple;
+        }
+    }
+
+    .search-btn {
+        background-color: transparent;
+        border: none;
+    }
+}
