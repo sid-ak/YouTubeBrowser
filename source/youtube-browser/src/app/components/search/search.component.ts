@@ -15,6 +15,11 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Calls the YouTube Data service to fetch data from the
+   * YouTube Data API on searching.
+   * TODO: Remove the console.log and integrate the API.
+   */
   onSearch() {
     console.log(this.searchControl.value);
   }
