@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { YoutubeDataService } from 'src/app/services/youtube-data.service';
 
 @Component({
   selector: 'app-search',
