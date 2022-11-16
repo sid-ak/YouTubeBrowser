@@ -10,7 +10,7 @@ import { ConfigService } from './services/config/config.service';
 })
 export class AppComponent implements OnInit {
 
-  title = 'youtube-browser';
+  title: string = "youtube-browser";
 
   isApiKeySet: boolean = environment.apiKey != "";
   errorMessage: string = "";
