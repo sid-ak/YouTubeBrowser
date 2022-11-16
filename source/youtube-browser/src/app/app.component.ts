@@ -21,16 +21,22 @@ export class AppComponent implements OnInit {
     this.setApiKey();
   }
 
+  /**
+   * Sets the API key required to send requests from the app.
+   */
   private async setApiKey() {
     if (this.isApiKeySet) return;
     
     try {
+
+      // Use the ConfigService to get the API key.
       const config: Config = await this.configService.getConfig();
       const apiKey: string = config.apiKey;
       
       if (apiKey == "" || apiKey == undefined)
         throw Error("API key not found in config.json.") 
       
+      // Set the API key in environment.ts.
       environment.apiKey = config.apiKey;
       this.isApiKeySet = true;
     }

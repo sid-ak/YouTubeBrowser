@@ -8,10 +8,15 @@ import { Config } from 'src/app/interfaces/config.interface';
 })
 export class ConfigService {
   
+  // The path to the config.json file.
   private readonly configUrl = "assets/config.json";
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Gets config data for the app.
+   * @returns 
+   */
   getConfig(): Promise<Config> {
     return firstValueFrom(
       this.http.get<Config>(this.configUrl));
