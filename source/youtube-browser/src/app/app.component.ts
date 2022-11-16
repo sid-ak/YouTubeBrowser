@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   title = 'youtube-browser';
 
-  isApiKeySet: boolean = false;
+  isApiKeySet: boolean = environment.apiKey != "";
   errorMessage: string = "";
 
   constructor(private readonly configService: ConfigService) {}
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
    */
   private async setApiKey() {
     if (this.isApiKeySet) return;
-    
+
     try {
 
       // Use the ConfigService to get the API key.
@@ -38,13 +38,18 @@ export class AppComponent implements OnInit {
       
       // Set the API key in environment.ts.
       environment.apiKey = config.apiKey;
+
+      // Set this to true so the app can render.
       this.isApiKeySet = true;
     }
     catch (error: any) {
+      
+      // Set the error message that the API key was not set.
       this.errorMessage = "\nError: API key not set.\nPlease ensure the following:\n"
         + "- The config.json file is in directory: source\\youtube-browser\\src\\assets\n"
         + "- The config.json file contains the required API key.\n"
         + `\n${error.message}`;
+
       console.log(this.errorMessage);
     }
   }
