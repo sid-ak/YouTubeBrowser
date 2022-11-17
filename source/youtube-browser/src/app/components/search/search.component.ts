@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { StringHelper } from 'src/app/helpers/string.helper';
+import { YoutubeSearchList } from 'src/app/models/youtube-data.model';
 import { YoutubeDataService } from 'src/app/services/youtube-data/youtube-data.service';
 
 @Component({
@@ -20,11 +22,22 @@ export class SearchComponent implements OnInit {
   /**
    * Calls the YoutubeDataService to fetch data from the
    * YouTube Data API on searching.
+   * 
+   * TODO: Use search list to update DOM and remove console.log(). 
    */
-  async onSearch() {
-    const query: string = this.searchControl.value;
-    const searchResult = await this.ytService.getYoutubeVideo(query);
-    console.log(searchResult);
+  public async onSearch(): Promise<void> {
+    try {
+      const query: string = this.searchControl.value;
+      if (StringHelper.isNullOrEmpty(query)) return;
+
+      const searchList: YoutubeSearchList = await this.ytService.getSearchList(query);
+
+      console.log(searchList);
+    }
+    catch (error: any) {
+      throw Error(
+        `\nSomething went wrong while searching for a video.\n${error.message}`)
+    }
   }
 
 }

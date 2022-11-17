@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { YoutubeSearchList, YoutubeVideo } from 'src/app/models/youtube-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,12 @@ export class YoutubeDataService {
   
   constructor(private readonly http: HttpClient) { }
 
-  getYoutubeVideo(query: string) {
+  /**
+   * Gets the YouTube search result based on the provided query.
+   * @param query 
+   * @returns 
+   */
+  public getSearchList(query: string): Promise<YoutubeSearchList> {
     
     const options = { 
       observe: "body" as const,
@@ -25,6 +31,12 @@ export class YoutubeDataService {
     };
 
     return firstValueFrom(
-      this.http.get(this.searchUrl, options));
+      this.http.get<YoutubeSearchList>(this.searchUrl, options).pipe(
+        map((e: any) => {
+          return new YoutubeSearchList(
+            e.nextPageToken, (e.items as []).map(
+              (e: any) => new YoutubeVideo(e.snippet)));
+            })
+      ));
   }
 }
