@@ -14,10 +14,11 @@ export class VideoListComponent implements OnInit, OnDestroy {
 
   public searchList: YoutubeSearchList = new YoutubeSearchList();
 
-  public test: string = "https://material.angular.io/assets/img/examples/shiba2.jpg"
-
   constructor(private readonly eventService: EventService) { }
 
+  /**
+   * Reacts to an update to the search list value.
+   */
   ngOnInit(): void {
     this.eventService.searchChanged$.pipe(
       takeUntil(this.destroyed$)).subscribe(
