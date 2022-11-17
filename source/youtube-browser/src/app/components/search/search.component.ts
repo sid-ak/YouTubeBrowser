@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { StringHelper } from 'src/app/helpers/string.helper';
 import { YoutubeSearchList } from 'src/app/models/youtube-data.model';
+import { EventService } from 'src/app/services/event/event.service';
 import { YoutubeDataService } from 'src/app/services/youtube-data/youtube-data.service';
 
 @Component({
@@ -14,7 +16,9 @@ export class SearchComponent implements OnInit {
   // The search value entered into the matInput search.
   readonly searchControl: FormControl = new FormControl();
 
-  constructor(private readonly ytService: YoutubeDataService) { }
+  constructor(
+    private readonly ytService: YoutubeDataService,
+    private readonly eventService: EventService) { }
 
   ngOnInit(): void {
   }
@@ -22,8 +26,6 @@ export class SearchComponent implements OnInit {
   /**
    * Calls the YoutubeDataService to fetch data from the
    * YouTube Data API on searching.
-   * 
-   * TODO: Use search list to update DOM and remove console.log(). 
    */
   public async onSearch(): Promise<void> {
     try {
@@ -31,8 +33,7 @@ export class SearchComponent implements OnInit {
       if (StringHelper.isNullOrEmpty(query)) return;
 
       const searchList: YoutubeSearchList = await this.ytService.getSearchList(query);
-
-      console.log(searchList);
+      this.eventService.searchChanged$.next(searchList);
     }
     catch (error: any) {
       throw Error(
