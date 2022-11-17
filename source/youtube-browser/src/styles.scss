@@ -25,7 +25,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 // ERROR MESSAGE
-#errorMessage {
+#error-message {
     color: red;
     white-space: pre-wrap;
+}
+
+// VIDEO LIST
+.video-list {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    :hover {
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+
+    #video-list-card {
+        :hover {
+            box-shadow: initial;
+        }
+        background-color: transparent;
+        color: purple;
+        mat-card-subtitle {
+            color: inherit;
+        }
+    }
 }
