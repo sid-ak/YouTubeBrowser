@@ -1,6 +1,6 @@
 /**
  * Represents the config structure.
  */
-export interface Config {
+export interface IConfig {
     apiKey: string;
 }

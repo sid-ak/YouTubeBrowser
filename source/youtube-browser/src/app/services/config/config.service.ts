@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { Config } from 'src/app/interfaces/config.interface';
+import { IConfig } from 'src/app/interfaces/config.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class ConfigService {
    * Gets config data for the app.
    * @returns 
    */
-  getConfig(): Promise<Config> {
+  public getConfig(): Promise<IConfig> {
     return firstValueFrom(
-      this.http.get<Config>(this.configUrl));
+      this.http.get<IConfig>(this.configUrl));
   }
 }

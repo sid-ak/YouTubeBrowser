@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Config } from './interfaces/config.interface';
+import { IConfig } from './interfaces/config.interface';
 import { ConfigService } from './services/config/config.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     try {
 
       // Use the ConfigService to get the API key.
-      const config: Config = await this.configService.getConfig();
+      const config: IConfig = await this.configService.getConfig();
       const apiKey: string = config.apiKey;
       
       if (apiKey == "" || apiKey == undefined)
