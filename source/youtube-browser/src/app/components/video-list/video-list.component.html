@@ -1,0 +1,11 @@
+<mat-card>
+    <div *ngFor="let video of searchList.videos">
+        <div class="row">
+            <img class="col-4" [attr.src]="video.thumbnails.high.url">
+            <div class="col-8">
+                <mat-card-title>{{ video.title }}</mat-card-title>
+                <mat-card-subtitle> {{ video.description }}</mat-card-subtitle>
+            </div>
+        </div>
+    </div>
+</mat-card>
