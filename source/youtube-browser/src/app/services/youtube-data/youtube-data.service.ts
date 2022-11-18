@@ -11,6 +11,15 @@ export class YoutubeDataService {
 
   private readonly apiKey: string = environment.apiKey;
   private readonly searchUrl: string = `https://www.googleapis.com/youtube/v3/search?key=${this.apiKey}`;
+  private readonly searchListParams = new HttpParams()
+    .set("part", "snippet")
+    .set("fields", "nextPageToken, items(id," +
+      "snippet(title," +
+              "description," +
+              "channelTitle," +
+              "thumbnails))")
+    .set("maxResults", 10)
+    .set("type", "video");
   
   constructor(private readonly http: HttpClient) { }
 
@@ -24,10 +33,7 @@ export class YoutubeDataService {
     const options = { 
       observe: "body" as const,
       responseType: "json" as const,
-      params: new HttpParams()
-        .set("part", "snippet")
-        .set("maxResults", 10)
-        .set("type", "video")
+      params: this.searchListParams
         .set("q", query)
     };
 
@@ -52,10 +58,7 @@ export class YoutubeDataService {
       const options = { 
         observe: "body" as const,
         responseType: "json" as const,
-        params: new HttpParams()
-          .set("part", "snippet")
-          .set("maxResults", 10)
-          .set("type", "video")
+        params: this.searchListParams
           .set("q", query)
           .set("pageToken", nextPageToken)
       };
