@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { VideoListComponent } from './components/video-list/video-list.component';
 import { MatCardModule } from '@angular/material/card';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatIconModule,
     MatCardModule,
+    ScrollingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
