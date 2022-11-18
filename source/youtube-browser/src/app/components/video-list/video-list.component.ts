@@ -27,11 +27,9 @@ export class VideoListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.eventService.queryChanged$.pipe(
       takeUntil(this.destroyed$)).subscribe(
-        (e: string) => {
-          this.query = e;
+        (query: string) => {
+          this.initList(query);
         });
-    
-    this.initList();
   }
 
   ngOnDestroy(): void {
@@ -42,10 +40,10 @@ export class VideoListComponent implements OnInit, OnDestroy {
    * Initializes the video list.
    * @returns 
    */
-  async initList(): Promise<void> {
+  async initList(query: string): Promise<void> {
     try {
-      if (this.query === "") return;
-      this.searchList = await this.ytService.getSearchList(this.query);
+      if (query === "") return;
+      this.searchList = await this.ytService.getSearchList(query);
     }
     catch (error: any) {
       throw Error(
@@ -61,6 +59,7 @@ export class VideoListComponent implements OnInit, OnDestroy {
       const videoScrollElement = document.getElementById("video-list-scroll");
       if (videoScrollElement === null) return;
 
+      // Get the total scroll height, height from top and visible scroll height.
       const scrollHeight = videoScrollElement.scrollHeight;
       const scrollTop = videoScrollElement.scrollTop;
       const clientHeight = videoScrollElement.clientHeight;
@@ -74,12 +73,19 @@ export class VideoListComponent implements OnInit, OnDestroy {
    * Updates the video list with new data.
    */
   async updateList(): Promise<void> {
-    const nextPage = await this.ytService.getNextPage(
-      this.query, this.searchList.nextPageToken);
-    
-    // Set the current page token to the next one.
-    this.searchList.nextPageToken = nextPage.nextPageToken;
-
-    this.searchList.videos = [...this.searchList.videos, ...nextPage.videos]
+    try {
+      const nextPage = await this.ytService.getNextPage(
+        this.query, this.searchList.nextPageToken);
+      
+      // Set the current page token to the next one.
+      this.searchList.nextPageToken = nextPage.nextPageToken;
+      
+      // Update the video list.
+      this.searchList.videos = [...this.searchList.videos, ...nextPage.videos]
+    }
+    catch (error: any) {
+      throw Error(
+        `\nSomething went wrong while updating the video list.\n${error.message}`)
+    }
   }
 }
