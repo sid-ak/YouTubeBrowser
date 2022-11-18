@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs';
-import { YoutubeSearchList } from 'src/app/models/youtube-data.model';
+import { YoutubeSearchList, YoutubeVideo } from 'src/app/models/youtube-data.model';
 import { EventService } from 'src/app/services/event/event.service';
 import { YoutubeDataService } from 'src/app/services/youtube-data/youtube-data.service';
 
@@ -43,7 +43,8 @@ export class VideoListComponent implements OnInit, OnDestroy {
   async initList(query: string): Promise<void> {
     try {
       if (query === "") return;
-      this.searchList = await this.ytService.getSearchList(query);
+      this.query = query;
+      this.searchList = await this.ytService.getSearchList(this.query);
     }
     catch (error: any) {
       throw Error(
