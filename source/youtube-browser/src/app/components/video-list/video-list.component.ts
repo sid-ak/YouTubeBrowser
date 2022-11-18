@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit } from '@angular/core';
-import { concat, Observable, Subject, takeUntil } from 'rxjs';
-import { YoutubeSearchList, YoutubeVideo } from 'src/app/models/youtube-data.model';
+import { Component, EventEmitter, Input, OnDestroy, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs';
+import { YoutubeSearchList } from 'src/app/models/youtube-data.model';
 import { EventService } from 'src/app/services/event/event.service';
 import { YoutubeDataService } from 'src/app/services/youtube-data/youtube-data.service';
 
