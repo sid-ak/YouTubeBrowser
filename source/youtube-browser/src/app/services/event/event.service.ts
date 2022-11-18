@@ -10,5 +10,5 @@ export class EventService {
   constructor() { }
 
   // Signals that the the search list was updated.
-  public readonly searchChanged$ = new Subject<YoutubeSearchList>();
+  public readonly queryChanged$ = new Subject<string>();
 }

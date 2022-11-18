@@ -4,10 +4,12 @@ import { IThumbnail, IThumbnails, IYoutubeVideo } from "../interfaces/youtube-da
  * Represents a YouTube search result.
  */
 export class YoutubeSearchList {
-    readonly nextPageToken: string;
-    readonly videos: IYoutubeVideo[];
+    readonly query: string
+    nextPageToken: string;
+    videos: IYoutubeVideo[];
 
-    constructor(nextPageToken?: string, videos?: IYoutubeVideo[]) {
+    constructor(query?: string, nextPageToken?: string, videos?: IYoutubeVideo[]) {
+        this.query = query ?? "";
         this.nextPageToken = nextPageToken ?? "";
         this.videos = videos ?? [];
     }
