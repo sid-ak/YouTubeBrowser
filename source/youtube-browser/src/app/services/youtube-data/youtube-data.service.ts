@@ -26,6 +26,7 @@ export class YoutubeDataService {
       responseType: "json" as const,
       params: new HttpParams()
         .set("part", "snippet")
+        .set("maxResults", 10)
         .set("type", "video")
         .set("q", query)
     };
@@ -34,9 +35,39 @@ export class YoutubeDataService {
       this.http.get<YoutubeSearchList>(this.searchUrl, options).pipe(
         map((e: any) => {
           return new YoutubeSearchList(
-            e.nextPageToken, (e.items as []).map(
-              (e: any) => new YoutubeVideo(e.snippet)));
-            })
+            query,
+            e.nextPageToken,
+            (e.items as []).map((e: any) => new YoutubeVideo(e.snippet)));
+          })
       ));
   }
+
+    /**
+   * Gets the YouTube search result on the next page with the next page token.
+   * @param query 
+   * @returns 
+   */
+     public getNextPage(query: string, nextPageToken: string): Promise<YoutubeSearchList> {
+    
+      const options = { 
+        observe: "body" as const,
+        responseType: "json" as const,
+        params: new HttpParams()
+          .set("part", "snippet")
+          .set("maxResults", 10)
+          .set("type", "video")
+          .set("q", query)
+          .set("pageToken", nextPageToken)
+      };
+  
+      return firstValueFrom(
+        this.http.get<YoutubeSearchList>(this.searchUrl, options).pipe(
+          map((e: any) => {
+            return new YoutubeSearchList(
+              query,
+              e.nextPageToken,
+              (e.items as []).map((e: any) => new YoutubeVideo(e.snippet)));
+            })
+      ));
+    }
 }
