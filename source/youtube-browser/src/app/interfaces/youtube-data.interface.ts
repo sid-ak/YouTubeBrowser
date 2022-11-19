@@ -2,6 +2,7 @@
  * Represents a YouTube video.
  */
 export interface IYoutubeVideo {
+    readonly id: string;
     readonly title: string;
     readonly description: string;
     readonly channelTitle: string;

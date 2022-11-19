@@ -13,7 +13,7 @@ export class YoutubeDataService {
   private readonly searchUrl: string = `https://www.googleapis.com/youtube/v3/search?key=${this.apiKey}`;
   private readonly searchListParams = new HttpParams()
     .set("part", "snippet")
-    .set("fields", "nextPageToken, items(id," +
+    .set("fields", "nextPageToken, items(id/videoId," +
       "snippet(title," +
               "description," +
               "channelTitle," +
@@ -43,7 +43,7 @@ export class YoutubeDataService {
           return new YoutubeSearchList(
             query,
             e.nextPageToken,
-            (e.items as []).map((e: any) => new YoutubeVideo(e.snippet)));
+            (e.items as []).map((e: any) => new YoutubeVideo(e.id.videoId, e.snippet)));
           })
       ));
   }
@@ -69,7 +69,7 @@ export class YoutubeDataService {
             return new YoutubeSearchList(
               query,
               e.nextPageToken,
-              (e.items as []).map((e: any) => new YoutubeVideo(e.snippet)));
+              (e.items as []).map((e: any) => new YoutubeVideo(e.id.videoId, e.snippet)));
             })
       ));
     }
