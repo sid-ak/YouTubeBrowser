@@ -1,15 +1,17 @@
-import { IThumbnail, IYoutubeVideo } from "../interfaces/youtube-data.interface";
+import { IThumbnail, IThumbnails, IYoutubeVideo } from "../interfaces/youtube-data.interface";
 
 /**
  * Represents a YouTube search result.
  */
 export class YoutubeSearchList {
-    readonly nextPageToken: string;
-    readonly videos: IYoutubeVideo[];
+    readonly query: string
+    nextPageToken: string;
+    videos: IYoutubeVideo[];
 
-    constructor(nextPageToken: string, videos: IYoutubeVideo[]) {
-        this.nextPageToken = nextPageToken;
-        this.videos = videos;
+    constructor(query?: string, nextPageToken?: string, videos?: IYoutubeVideo[]) {
+        this.query = query ?? "";
+        this.nextPageToken = nextPageToken ?? "";
+        this.videos = videos ?? [];
     }
 }
 
@@ -20,7 +22,7 @@ export class YoutubeVideo {
     readonly title: string;
     readonly description: string;
     readonly channelTitle: string;
-    readonly thumbnails: IThumbnail[];
+    readonly thumbnails: IThumbnails;
 
     constructor(video: IYoutubeVideo) {
         this.title = video.title;

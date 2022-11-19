@@ -5,11 +5,20 @@ export interface IYoutubeVideo {
     readonly title: string;
     readonly description: string;
     readonly channelTitle: string;
-    readonly thumbnails: IThumbnail[];
+    readonly thumbnails: IThumbnails;
 }
 
 /**
- * Represents the thumbnail for a video.
+ * Represents a collection of thumbnails.
+ */
+export interface IThumbnails {
+    readonly default: IThumbnail;
+    readonly medium: IThumbnail;
+    readonly high: IThumbnail;
+}
+
+/**
+ * Represents a single thumbnail.
  */
 export interface IThumbnail {
     readonly url: string;
