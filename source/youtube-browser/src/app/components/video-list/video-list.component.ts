@@ -82,7 +82,7 @@ export class VideoListComponent implements OnInit, OnDestroy {
       this.searchList.nextPageToken = nextPage.nextPageToken;
       
       // Update the video list.
-      this.searchList.videos = [...this.searchList.videos, ...nextPage.videos]
+      this.searchList.videos = [...this.searchList.videos, ...nextPage.videos];
     }
     catch (error: any) {
       throw Error(
