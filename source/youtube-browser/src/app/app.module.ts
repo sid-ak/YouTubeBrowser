@@ -12,13 +12,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { VideoListComponent } from './components/video-list/video-list.component';
 import { MatCardModule } from '@angular/material/card';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { VideoComponent } from './components/video/video.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SearchComponent,
-    VideoListComponent
+    VideoListComponent,
+    VideoComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatIconModule,
     MatCardModule,
     ScrollingModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
