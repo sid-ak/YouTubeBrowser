@@ -22,16 +22,16 @@ export class VideoComponent implements OnInit, OnDestroy {
   /**
    * Gets the video using the id provided in the URL.
    */
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     var videoId: string = "";
 
     this.activatedRoute.queryParams.pipe(
       takeUntil(this.destroyed$)).subscribe(
-        e => videoId = (e['id'])
-      );
-    
-    const video = await this.ytService.getVideo(videoId);
-    this.video = video;
+        async e => {
+          videoId = (e['id']);
+          this.video = await this.ytService.getVideo(videoId);
+        }
+    );
   }
 
   ngOnDestroy(): void {
