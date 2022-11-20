@@ -48,29 +48,29 @@ export class YoutubeDataService {
       ));
   }
 
-    /**
-   * Gets the YouTube search result on the next page with the next page token.
-   * @param query 
-   * @returns 
-   */
-     public getNextPage(query: string, nextPageToken: string): Promise<YoutubeSearchList> {
-    
-      const options = { 
-        observe: "body" as const,
-        responseType: "json" as const,
-        params: this.searchListParams
-          .set("q", query)
-          .set("pageToken", nextPageToken)
-      };
+  /**
+ * Gets the YouTube search result on the next page with the next page token.
+ * @param query 
+ * @returns 
+ */
+    public getNextPage(query: string, nextPageToken: string): Promise<YoutubeSearchList> {
   
-      return firstValueFrom(
-        this.http.get<YoutubeSearchList>(this.searchUrl, options).pipe(
-          map((e: any) => {
-            return new YoutubeSearchList(
-              query,
-              e.nextPageToken,
-              (e.items as []).map((e: any) => new YoutubeVideo(e.id.videoId, e.snippet)));
-            })
-      ));
-    }
+    const options = { 
+      observe: "body" as const,
+      responseType: "json" as const,
+      params: this.searchListParams
+        .set("q", query)
+        .set("pageToken", nextPageToken)
+    };
+
+    return firstValueFrom(
+      this.http.get<YoutubeSearchList>(this.searchUrl, options).pipe(
+        map((e: any) => {
+          return new YoutubeSearchList(
+            query,
+            e.nextPageToken,
+            (e.items as []).map((e: any) => new YoutubeVideo(e.id.videoId, e.snippet)));
+          })
+    ));
+  }
 }
