@@ -7,6 +7,7 @@ export interface IYoutubeVideo {
     readonly description: string;
     readonly channelTitle: string;
     readonly thumbnails: IThumbnails;
+    readonly player?: IPlayer;
 }
 
 /**
@@ -25,4 +26,8 @@ export interface IThumbnail {
     readonly url: string;
     readonly width: number;
     readonly height: number;
+}
+
+export interface IPlayer {
+    readonly embedHtml: string
 }
