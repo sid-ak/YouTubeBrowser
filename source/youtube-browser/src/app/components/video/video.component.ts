@@ -19,6 +19,9 @@ export class VideoComponent implements OnInit, OnDestroy {
     private readonly ytService: YoutubeDataService,
     private readonly activatedRoute: ActivatedRoute) { }
 
+  /**
+   * Gets the video using the id provided in the URL.
+   */
   async ngOnInit(): Promise<void> {
     var videoId: string = "";
 
@@ -29,8 +32,6 @@ export class VideoComponent implements OnInit, OnDestroy {
     
     const video = await this.ytService.getVideo(videoId);
     this.video = video;
-
-    console.log(video);
   }
 
   ngOnDestroy(): void {
