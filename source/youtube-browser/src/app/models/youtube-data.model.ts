@@ -1,4 +1,4 @@
-import { IThumbnail, IThumbnails, IYoutubeVideo } from "../interfaces/youtube-data.interface";
+import { IPlayer, IThumbnail, IThumbnails, IYoutubeVideo } from "../interfaces/youtube-data.interface";
 
 /**
  * Represents a YouTube search result.
@@ -19,15 +19,22 @@ export class YoutubeSearchList {
  * Represents a YouTube video.
  */
 export class YoutubeVideo {
+    readonly id: string
     readonly title: string;
     readonly description: string;
     readonly channelTitle: string;
     readonly thumbnails: IThumbnails;
+    readonly player?: IPlayer
 
-    constructor(video: IYoutubeVideo) {
+    constructor(
+        id: string,
+        video: IYoutubeVideo,
+        player?: IPlayer) {
+        this.id = id;
         this.title = video.title;
         this.description = video.description;
         this.channelTitle = video.channelTitle;
         this.thumbnails = video.thumbnails;
+        this.player = player ?? undefined;
     }
 }

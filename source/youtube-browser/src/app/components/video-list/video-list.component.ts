@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs';
+import { StringHelper } from 'src/app/helpers/string.helper';
 import { YoutubeSearchList } from 'src/app/models/youtube-data.model';
 import { EventService } from 'src/app/services/event/event.service';
 import { YoutubeDataService } from 'src/app/services/youtube-data/youtube-data.service';
@@ -18,18 +20,18 @@ export class VideoListComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly eventService: EventService,
-    private readonly ytService: YoutubeDataService) { }
+    private readonly ytService: YoutubeDataService,
+    private readonly activatedRoute: ActivatedRoute) { }
 
   /**
    * Reacts to an update to the search list value.
    * Initializes the search list.
    */
   ngOnInit(): void {
-    this.eventService.queryChanged$.pipe(
+    this.activatedRoute.queryParams.pipe(
       takeUntil(this.destroyed$)).subscribe(
-        (query: string) => {
-          this.initList(query);
-        });
+        e => this.initList(e['query'])
+      );
   }
 
   ngOnDestroy(): void {
@@ -42,8 +44,10 @@ export class VideoListComponent implements OnInit, OnDestroy {
    */
   async initList(query: string): Promise<void> {
     try {
-      if (query === "") return;
-      this.query = query;
+      if (StringHelper.isNullOrEmpty(query)
+        || query.trim() === this.query.trim()) return;
+      
+        this.query = query;
       this.searchList = await this.ytService.getSearchList(this.query);
     }
     catch (error: any) {
@@ -88,5 +92,10 @@ export class VideoListComponent implements OnInit, OnDestroy {
       throw Error(
         `\nSomething went wrong while updating the video list.\n${error.message}`)
     }
+  }
+
+  // Emits an event with the selected video IdleDeadline.
+  onVideoClick(videoId: string) {
+    this.eventService.videoSelected$.next(videoId);
   }
 }
