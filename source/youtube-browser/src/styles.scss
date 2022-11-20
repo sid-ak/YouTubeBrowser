@@ -57,6 +57,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
             }
             background-color: transparent;
             color: green;
+
+            mat-card-title {
+                font-size: medium;
+            }
+
             mat-card-subtitle {
                 color: inherit;
             }
