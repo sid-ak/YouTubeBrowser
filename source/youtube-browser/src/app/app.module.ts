@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { VideoComponent } from './components/video/video.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SanitizePipe } from './pipes/sanitize.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
     HomeComponent,
     SearchComponent,
     VideoListComponent,
-    VideoComponent
+    VideoComponent,
+    SanitizePipe
   ],
   imports: [
     BrowserModule,
