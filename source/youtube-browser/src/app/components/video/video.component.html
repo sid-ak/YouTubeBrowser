@@ -1,1 +1,11 @@
-<div [innerHTML]="video?.player?.embedHtml | sanitizeHtml"></div>
+<div id="video">
+    <div class="player" [innerHTML]="video?.player?.embedHtml | sanitizeHtml"></div>
+    <div class="row">
+        <div class="col">
+            <div class="video-info mt-3">
+                <h1>{{ video?.title }}</h1>
+                <h2>{{ video?.channelTitle }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
