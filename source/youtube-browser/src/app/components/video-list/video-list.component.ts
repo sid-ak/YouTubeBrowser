@@ -31,7 +31,7 @@ export class VideoListComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.pipe(
       takeUntil(this.destroyed$)).subscribe(
         e => this.initList(e['query'])
-      )
+      );
   }
 
   ngOnDestroy(): void {

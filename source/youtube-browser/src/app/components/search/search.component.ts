@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { takeUntil } from 'rxjs';
 import { StringHelper } from 'src/app/helpers/string.helper';
 import { EventService } from 'src/app/services/event/event.service';
 
@@ -8,14 +10,26 @@ import { EventService } from 'src/app/services/event/event.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
+
+  private readonly destroyed$ = new EventEmitter<boolean>();
 
   // The search value entered into the matInput search.
   readonly searchControl: FormControl = new FormControl();
 
-  constructor(private readonly eventService: EventService) { }
+  constructor(
+    private readonly eventService: EventService,
+    private readonly activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.pipe(
+      takeUntil(this.destroyed$)).subscribe(
+        e => this.searchControl.setValue(e['query'])
+      );
+  }
+
+  ngOnDestroy(): void {
+      this.destroyed$.next(true);
   }
 
   /**
