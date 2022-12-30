@@ -1,4 +1,4 @@
-# YouTube-Browser
+# YouTubeBrowser
 A single page application developed with Angular (v14) that implements the YouTube Data API for searching and watching Dog videos.
 
 ## Getting Started
