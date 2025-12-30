@@ -1,5 +1,5 @@
 # YouTubeBrowser
-A single page application developed with Angular (v14) that implements the YouTube Data API for searching and watching videos.
+A single page application developed with Angular (v14) that implements the YouTube Data API for searching and watching videos featuring infinity scroll functionality.
 
 ## Getting Started
 
